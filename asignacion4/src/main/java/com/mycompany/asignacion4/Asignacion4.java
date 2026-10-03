@@ -61,7 +61,10 @@ public class Asignacion4 {
                     List<String> lineas = Files.readAllLines(ruta);
                     lineas.forEach(System.out::println); //String correspondiente por iteracion
                     break;
-                
+                    
+                case 6:
+                    System.out.println("Saliendo");
+                    return;    
                     
             }
             
