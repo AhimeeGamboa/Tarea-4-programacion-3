@@ -62,6 +62,17 @@ public class Asignacion4 {
                     lineas.forEach(System.out::println); //String correspondiente por iteracion
                     break;
                     
+                case 3:
+                    //buscar
+                    System.out.println("Ingrese el ID a buscar:");
+                    String idBuscar = scanner.nextLine();
+                    if (alumnos.contains(idBuscar)){
+                        System.out.println("La ID "+ idBuscar + " si existe en el archivo");
+                    }else{
+                        System.out.println("La ID "+ idBuscar + " no existe en el archivo");
+                    }
+                    break;
+                    
                 case 6:
                     System.out.println("Saliendo");
                     return;    
