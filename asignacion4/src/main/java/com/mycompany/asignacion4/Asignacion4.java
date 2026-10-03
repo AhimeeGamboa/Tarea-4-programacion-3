@@ -75,7 +75,10 @@ public class Asignacion4 {
                     
                 case 6:
                     System.out.println("Saliendo");
-                    return;    
+                    return; 
+                default:
+                    System.out.println("Opcion no valida");
+                    continue;
                     
             }
             
