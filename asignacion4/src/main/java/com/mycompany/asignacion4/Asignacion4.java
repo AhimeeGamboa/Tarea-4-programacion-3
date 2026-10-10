@@ -42,7 +42,7 @@ public class Asignacion4 {
                         System.out.println("ID del alumno:");
                         String idRegistro = scanner.nextLine();
                         
-                        String Registrar = idRegistro + " - " + nombreRegistro;
+                        String Registrar = idRegistro + " - " + nombreRegistro + "\n";
                         Files.writeString(ruta, Registrar,   // \n es salto de linea \tabulacion \r retorno carro
                         StandardOpenOption.CREATE, StandardOpenOption.APPEND);
                         System.out.println("Archivo guardado con exito");    
@@ -58,9 +58,20 @@ public class Asignacion4 {
                     break;
                     
                 case 3: //busqueda
+                    
+                    List<String> lineasBusqueda = Files.readAllLines(ruta);                    
                     System.out.println("Ingrese el ID a buscar:");
-                    String idBuscar = scanner.nextLine();
-                    if (alumnos.contains(idBuscar)){
+                    String idBuscar = scanner.nextLine().trim();
+                    boolean encontrado = false;
+                    
+                    for (String registro : lineasBusqueda) {
+                        if (registro.startsWith(idBuscar)) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+            
+                    if (encontrado){
                         System.out.println("La ID "+ idBuscar + " si existe en el archivo");
                     }else{
                         System.out.println("La ID "+ idBuscar + " no existe en el archivo");
@@ -68,6 +79,77 @@ public class Asignacion4 {
                     break;
                 
                 case 4: //editar alumno por id
+                    
+                    List<String> lineasEditar = Files.readAllLines(ruta);                    
+                    System.out.println("Ingrese el ID a editar:");
+                    idBuscar = scanner.nextLine().trim();
+                    boolean editar = false;
+                    
+                    for (int i = 0; i < lineasEditar.size(); i++) { //
+                        String registro = lineasEditar.get(i);
+                        
+                        if (registro.startsWith(idBuscar + " -")); {
+                        
+                            System.out.println("ID encontrado, ingrese el nombre nuevo:");
+                            String nuevoNombre = scanner.nextLine();
+                            String registroActualizado = idBuscar + " - " + nuevoNombre;
+                            lineasEditar.set(i, registroActualizado);
+                            
+                            editar = true;
+                            break;
+                        }
+                    }
+                    
+                    if (editar) {
+                        Files.write(ruta, lineasEditar);
+                        System.out.println("Nombre actualizado");
+                    }
+                    else {
+                        System.out.println("No se encontro la ID");
+                    }
+                    
+                    
+                    break;
+                
+                case 5:
+                    List<String> lineasEliminar = Files.readAllLines(ruta);                    
+                    System.out.println("Ingrese el ID a eliminar:");
+                    idBuscar = scanner.nextLine().trim();
+                    boolean eliminar = false;
+                    
+                    for (int i = 0; i < lineasEliminar.size(); i++) { //
+                        String registro = lineasEliminar.get(i);
+                        
+                        if (registro.startsWith(idBuscar + " -")); {
+                        
+                            System.out.println("ID encontrado, eliminar?");
+                            System.out.println("1. SI - 2. NO");
+                            int idEliminar = scanner.nextInt();
+                            
+                            if (idEliminar == 1) {
+                                scanner.nextLine();
+                                eliminar = true;
+                                lineasEliminar.remove(i);
+                                break;
+                            }
+                            if (idEliminar == 2) {
+                                scanner.nextLine();
+                                System.out.println("Cancelando operacion.");
+                            }
+                            else {
+                                scanner.nextLine();
+                                System.out.println("ERROR");
+                            }
+                            
+                        }
+                    }
+                    
+                    if (eliminar) {
+                        System.out.println("Alumno eliminado.");
+                    }
+                    else {
+                        System.out.println("No se encontro la ID.");
+                    }
                     break;
                     
                 case 6: //finalizar programa
