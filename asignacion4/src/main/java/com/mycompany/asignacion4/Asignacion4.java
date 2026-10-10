@@ -146,6 +146,7 @@ public class Asignacion4 {
                     
                     if (eliminar) {
                         System.out.println("Alumno eliminado.");
+                        Files.write(ruta, lineasEliminar);
                     }
                     else {
                         System.out.println("No se encontro la ID.");
